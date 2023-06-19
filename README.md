@@ -16,7 +16,7 @@ Features:
 
 *Random Joke Generation: Clicking the "Tell me a Joke" button will fetch and display a random joke.
 
-*Random Riddle Generation: Clicking the "Riddle Me" button will fetch and display a random riddle.
+*Random Riddle Generation: Clicking the "Riddle Me" button will fetch and display a random riddle. 
 
 *Answer to the riddle: On clicking the "Reveal Answer" button you can view the answer to your riddle.
 
@@ -28,6 +28,7 @@ Credits:
 The Generator project was inspired by a YouTube video tutorial. The following resources were used in its development:
 
 *Frontend Web Development Bootcamp Course (JavaScript, HTML, CSS).
+https://www.youtube.com/watch?v=zJSY8tbf_ys&ab_channel=freeCodeCamp.org
 
 Author:
 -----------------
