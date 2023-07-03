@@ -29,21 +29,16 @@ function clearAll() {
   
   function showJoke() {
 
-       fetch('https://v2.jokeapi.dev/joke/Any?format=txt') /
-          .then(response => response.json())
-          .then(data => {
-            const jokeContent = document.querySelector('.joke-content');
-            if (data.type === 'single') {
-              jokeContent.innerHTML = `<p>${data.joke}</p>`;
-            } else if (data.type === 'twopart') {
-              jokeContent.innerHTML = `<p>${data.setup}</p><p>${data.delivery}</p>`;
-            }
-          })
-          .catch(error => {
-            console.log('Error:', error);
-          });
-      
-    clearAll();
+        
+    const randomJokeText = getRandomData('jokes');
+    
+    const newP = document.createElement('p');
+    newP.textContent = randomJokeText;
+    
+    clearAll()
+    
+    document.querySelector('.joke-content').appendChild(newP);
+    
    
   }
   
@@ -106,6 +101,16 @@ function clearAll() {
     return data[type][rn(data[type].length)];
   }
 
+const jokes=['Why dont scientists trust atoms? Because they make up everything!','I used to play piano by ear, but now I use my hands.',
+  'Why dont skeletons fight each other? They dont have the guts!',
+  'I told my wife she should embrace her mistakes. She gave me a hug.',
+  'I am reading a book about anti-gravity. Its impossible to put down!',
+  'Why did the scarecrow win an award? Because he was outstanding in his field!',
+  'I got a job at a bakery because I kneaded dough.',
+  'I used to be a baker, but I could not make enough dough.',
+  'I have a fear of speed bumps, but I am slowly getting over it.',
+  'How do you catch a squirrel? Climb a tree and act like a nut!' ];
+
   const quotes = [
       { quote: 'The only way to do great work is to love what you do.', author: 'Steve Jobs'},
       { quote: 'In the end, it\'s not the years in your life that count. It\'s the life in your years.', author: 'Abraham Lincoln' },
@@ -135,6 +140,7 @@ function clearAll() {
       }
       
       const data = {
+        jokes,
         quotes,
         riddles
       };
