@@ -11,15 +11,20 @@ function clearAll() {
   }
   
   function showMeme() {
-    // Value is a string representing image URL
-    const randomMemeUrl = getRandomData('memes');
-    const container = document.querySelector('.meme-content');
-    const newImg = document.createElement('img');
-    newImg.setAttribute('src', randomMemeUrl);
+       fetch('https://meme-api.com/gimme')
+    .then(response => response.json())
+    .then(data => {
+      const memeContent = document.querySelector('.meme-content');
+      memeContent.innerHTML = `<img src="${data.url}" alt="Meme" />`;
+    })
+    .catch(error => {
+      console.log('Error:', error);
+      
+    });
+   
     
     clearAll();
-    
-    container.appendChild(newImg);
+   
   }
   
   function showJoke() {
@@ -118,16 +123,6 @@ function clearAll() {
       { quote: 'Don\'t watch the clock; do what it does. Keep going.', author: 'Sam Levenson' },
     ];
   
-    const memes=[
-      'https://images.indianexpress.com/2017/04/work-meme-12.jpg?w=630','https://images.indianexpress.com/2017/04/work-meme10.jpg?w=630','https://images.indianexpress.com/2017/04/work-meme1.jpg?w=630',
-      'https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-30-632854d5bb609__700.jpg','https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-12-63283440474e0__700.jpg',
-      'https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-66-6329c40882c19__700.jpg','https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-71-6329c64cc5683__700.jpg',
-      'https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-1-632827c66b20c__700.jpg','https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-3-63282981225d3__700.jpg',
-      'https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-74-6329c7917f219__700.jpg','https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-6-63282ce78be0b__700.jpg',
-      'https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-13-6328359e920f9__700.jpg','https://www.boredpanda.com/blog/wp-content/uploads/2022/09/relatable-funny-memes-65-63282025e6bdf__700.jpg'
-      
-    ]
-  
     const riddles = [
       { question: 'I am taken from a mine, and shut in a wooden case, from which I am never released. Yet I am used by almost every person. What am I?', answer: 'Pencil lead/graphite.' },
       { question: 'The more you take, the more you leave behind. What am I?', answer: 'Footsteps' },
@@ -142,7 +137,6 @@ function clearAll() {
       }
       
       const data = {
-        memes,
         jokes,
         quotes,
         riddles
