@@ -29,7 +29,7 @@ function clearAll() {
   
   function showJoke() {
 
-       fetch('https://jokeapi.dev/api/joke/Any') // Replace with your desired joke API endpoint
+       fetch('https://v2.jokeapi.dev/joke/Any?format=txt') /
           .then(response => response.json())
           .then(data => {
             const jokeContent = document.querySelector('.joke-content');
