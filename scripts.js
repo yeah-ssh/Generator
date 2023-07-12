@@ -29,33 +29,45 @@ function clearAll() {
   
   function showJoke() {
 
-        
-    const randomJokeText = getRandomData('jokes');
-    
-    const newP = document.createElement('p');
-    newP.textContent = randomJokeText;
-    
-    clearAll()
-    
-    document.querySelector('.joke-content').appendChild(newP);
-    
+        fetch('https://v2.jokeapi.dev/joke/Any')
+        .then(response => response.json())
+        .then(data => {
+          const jokeContent = document.querySelector('.joke-content');
+          if (data.type === 'single') {
+            jokeContent.innerHTML = `<p>${data.joke}</p>`;
+          } else if (data.type === 'twopart') {
+            jokeContent.innerHTML = `<p>${data.setup}</p><p>${data.delivery}</p>`;
+          }
+        })
+        .catch(error => {
+          console.log('Error:', error);
+        });
+        clearAll();
+   
    
   }
   
   function showQuote() {
-    // Value should be in format: { quote: '', author: '' }
-    const randomQuote = getRandomData('quotes');
-    
-    const quote = document.createElement('p');
-    const author = document.createElement('p');
-    quote.textContent = randomQuote.quote;
-    author.textContent = "- " + randomQuote.author;
+      fetch("https://type.fit/api/quotes")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      const randomIndex = Math.floor(Math.random() * data.length); 
+      const randomQuote = data[randomIndex];
+  
+      console.log(randomQuote);
+      const quoteContent = document.querySelector('.quote-content');
+      quoteContent.innerHTML = `<p>${randomQuote.text}</p><p>- ${randomQuote.author}</p>`;
+    })
+    .catch(function(error) {
+      console.log('Error:', error);
+    });
+   
     
     clearAll();
     
-    const container = document.querySelector('.quote-content'); 
-    container.appendChild(quote);
-    container.appendChild(author);
+   
   }
   
   
@@ -101,30 +113,7 @@ function clearAll() {
     return data[type][rn(data[type].length)];
   }
 
-const jokes=['Why dont scientists trust atoms? Because they make up everything!','I used to play piano by ear, but now I use my hands.',
-  'Why dont skeletons fight each other? They dont have the guts!',
-  'I told my wife she should embrace her mistakes. She gave me a hug.',
-  'I am reading a book about anti-gravity. Its impossible to put down!',
-  'Why did the scarecrow win an award? Because he was outstanding in his field!',
-  'I got a job at a bakery because I kneaded dough.',
-  'I used to be a baker, but I could not make enough dough.',
-  'I have a fear of speed bumps, but I am slowly getting over it.',
-  'How do you catch a squirrel? Climb a tree and act like a nut!' ];
 
-  const quotes = [
-      { quote: 'The only way to do great work is to love what you do.', author: 'Steve Jobs'},
-      { quote: 'In the end, it\'s not the years in your life that count. It\'s the life in your years.', author: 'Abraham Lincoln' },
-      { quote: 'The greatest glory in living lies not in never falling, but in rising every time we fall.', author: 'Nelson Mandela' },
-      { quote: 'Be yourself; everyone else is already taken.', author: 'Oscar Wilde' },
-      { quote: 'The future belongs to those who believe in the beauty of their dreams.', author: 'Eleanor Roosevelt' },
-      { quote: 'Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful.', author: 'Albert Schweitzer' },
-      { quote: 'Two things are infinite: the universe and human stupidity; and I\'m not sure about the universe', author: 'Albert Einstein' },
-      { quote: 'The best way to predict the future is to create it.', author: 'Peter Drucker' },
-      { quote: 'The only thing necessary for the triumph of evil is for good men to do nothing.', author: 'Edmund Burke' },
-      { quote: 'The greatest glory is not in never falling, but in rising every time we fall.', author: 'Confucius' },
-      { quote: 'You miss 100% of the shots you don\'t take', author: 'Wayne Gretzky' },
-      { quote: 'Don\'t watch the clock; do what it does. Keep going.', author: 'Sam Levenson' },
-    ];
   
     const riddles = [
       { question: 'I am taken from a mine, and shut in a wooden case, from which I am never released. Yet I am used by almost every person. What am I?', answer: 'Pencil lead/graphite.' },
@@ -140,8 +129,6 @@ const jokes=['Why dont scientists trust atoms? Because they make up everything!'
       }
       
       const data = {
-        jokes,
-        quotes,
         riddles
       };
        
